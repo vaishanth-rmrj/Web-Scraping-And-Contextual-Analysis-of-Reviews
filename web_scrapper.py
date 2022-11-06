@@ -157,9 +157,27 @@ class Scrapper:
         file_size = Path(file_name).stat().st_size
         print("Saving data to csv file, {} , Memory {}mb".format(reviews_df.shape, file_size/pow(10, 6)))  
 
+import os
+import glob
+import pandas as pd
+
+
 if __name__ == "__main__":
-    url = "https://www.amazon.com/Ninja-NJ601AMZ-Professional-1000-Watt-Dishwasher-Safe/dp/B098RD17LG?ref_=Oct_DLandingS_D_929b9bab_60&smid=ATVPDKIKX0DER"
-  
-    scrapper = Scrapper()
-    scrapped_html = scrapper.get_all_reviews(url)
-    scrapper.save_as_csv("data/reviews.csv")
+    urls = [" https://www.amazon.com/Moto-Alexa-Hands-Free-camera-included/productreviews/B07N9255CG?ie=UTF8&reviewerType=all_reviews"]
+    # "https://www.amazon.com/Ninja-NJ601AMZ-Professional-1000-Watt-Dishwasher-Safe/dp/B098RD17LG?ref_=Oct_DLandingS_D_929b9bab_60&smid=ATVPDKIKX0DER", 
+    # "https://www.amazon.com/Sony-PlayStation-Pro-1TB-Console-4/dp/B07K14XKZH/", 
+    i = 1
+    for url in urls:
+        scrapper = Scrapper()
+        scrapped_html = scrapper.get_all_reviews(url)
+        scrapper.save_as_csv("data/reviews_data"+str(i)+".csv")
+        i+=1
+    
+    os.chdir("/home/pranav/Fall22/809K/Web-Scraping-And-Contextual-Analysis-of-Reviews/data")
+    extension = 'csv'
+    all_filenames = [i for i in glob.glob('*.{}'.format(extension))]
+    #combine all files in the list
+    combined_csv = pd.concat([pd.read_csv(f) for f in all_filenames ])
+    #export to csv
+    combined_csv.to_csv( "combined_csv.csv", index=False, encoding='utf-8-sig')
+    # # reviews_df = pd.read_csv('/content/drive/MyDrive/Project_809K/data/reviews_data.csv')
