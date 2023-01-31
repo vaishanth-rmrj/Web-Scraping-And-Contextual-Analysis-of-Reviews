@@ -1,0 +1,342 @@
+<InterfaceScreenManager>
+    SearchScreen:
+    ResultsScreen:
+    ProductInfoScreen:
+
+<SearchScreen>
+    name: "search_screen"
+    id: search_screen_manager
+
+    FitImage:
+        source: "assets/images/search_screen_bg.jpg"
+
+    MDFloatLayout:
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        size_hint: None, None           
+        size: 500, 400         
+        md_bg_color: 255.0/255.0, 255.0/255.0, 245.0/255.0, 0.7
+        radius: [25, 25, 25, 25]
+
+        MDLabel:
+            text: "WSCAR"
+            pos_hint: {"center_x": 0.5, "center_y": 0.65}
+            halign: "center"
+            font_style: "H3"
+        
+        MDLabel:
+            text: "Get your Product recomendations"
+            pos_hint: {"center_x": 0.5, "center_y": 0.56}
+            halign: "center"
+            font_style: "Subtitle1"
+        
+        MDRelativeLayout:
+            size_hint_x: None
+            size_hint_y: None
+            width: "400dp"
+            height: text_field.height
+            pos_hint: {"center_x": .5, "center_y": .42}
+
+            MDTextField:
+                id: text_field
+                mode: "rectangle"
+                hint_text: "Product Name"
+                helper_text: "Enter your product name or keywords"
+                helper_text_mode: "persistent"
+                max_text_length: 20
+                fill_color_normal: 255.0/255.0, 255.0/255.0, 245.0/255.0, 0.5
+
+            MDIconButton:
+                icon: "magnify"
+                pos_hint: {"center_y": .5}
+                pos: text_field.width - self.width + dp(6), 0
+                theme_text_color: "Hint"
+                on_release:
+                    root.manager.current = 'results_screen'
+
+
+<ProductPreviewWidget>
+    size_hint: None, None
+    size: 750, 200
+    padding: 1
+    pos_hint: {"center_x": .5, "center_y": .5}
+    style: "elevated"
+
+    MDBoxLayout:
+        padding: 10
+        spacing: 20
+
+        MDCard:
+            size_hint: None, None
+            size: root.width * 0.2, root.height - 20
+            style: "elevated"
+            shadow_softness: 1 
+            shadow_offset: (0, 1)
+            ripple_behavior: True
+            radius: 10
+
+            FitImage:
+                source: root.image_url
+                radius: 10
+
+        MDCard:
+            style: "elevated"
+            md_bg_color: "#f6eeee"
+            shadow_softness: 3
+            shadow_offset: (10, 10)
+            ripple_behavior: True
+            radius: 10
+
+            MDGridLayout:
+                cols: 1
+                size_hint: None, None
+                size: self.parent.width, self.parent.height
+                padding: 20
+                spacing: 10
+                
+
+                MDLabel:
+                    id: name
+                    text: root.name
+                    size_hint_y: None
+                    text_size: self.parent.width, None
+                    height: self.texture_size[1]
+                    color: "grey"
+                    bold: True
+
+                MDLabel:
+                    id: details
+                    text: root.details
+                    size_hint_y: None
+                    text_size: self.parent.width, None
+                    height: self.texture_size[1]
+                    color: "grey"
+                
+                MDLabel:
+                    id: price
+                    text: root.price
+                    size_hint_y: None
+                    text_size: self.parent.width, None
+                    height: self.texture_size[1]
+                    color: "grey"
+                    bold: True
+
+
+<ResultsScreen>
+    name: "results_screen"
+    MDBoxLayout:
+        orientation: "vertical"
+
+        MDTopAppBar:
+            elevation: 4
+            left_action_items: [["keyboard-backspace", lambda x: root.navigate_to_search_screen()]]
+            right_action_items: [["menu", lambda x: app.callback_2()]]
+            
+
+        MDScrollView:
+            
+            scroll_timeout : 100            
+
+            MDList:
+                md_bg_color: 1, 1, 1, 1
+                id: md_list
+                padding: 20
+                spacing: 20
+
+                MDCard:
+                    line_color: (0.2, 0.2, 0.2, 0.3)
+                    style: "outlined"
+                    size_hint: None, None
+                    size: 750, 30
+                    padding: 10
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    
+                    MDLabel:
+                        text: 'Search results'
+                
+                ProductPreviewWidget:                    
+                    image_url: "assets/images/product/product_1.jpg"
+                    name: "Nine West Women's Floral Dial Strap Watch"
+                    details: "Mineral crystal lens; black textured dial with 3D printed floral design; silver-tone hands and markers. Black strap with buckle. Japanese-quartz Movement Case Diameter: 38 millimeter Not water resistant"
+                    price: "$21.53"
+                    on_release: 
+                        root.navigate_to_product_info_screen()
+                
+                
+                ProductPreviewWidget:                    
+                    image_url: "assets/images/product/product_2.jpg"
+                    name: "Timex Women's T2H331 Indiglo Leather Strap Watch, Black/Silver-Tone/White"
+                    details: "Adjustable black 12 millimeter genuine leather strap fits up to 7.5-inch wrist circumference. Indiglo light-up watch dial. To screw in, push the crown firmly against the threaded protrusion and hold in while turning the crown clockwise."
+                    price: "$31.94"
+
+                ProductPreviewWidget:                    
+                    image_url: "assets/images/product/product_3.jpg"
+                    name: "Anne Klein Women's Genuine Diamond Dial Bracelet Watch"
+                    details: "Round watch featuring glossy black dial with genuine diamond at 12 o' clock. 28mm metal case with mineral dial window. Japanese quartz movement with analog display. Gold-tone adjustable link bracelet; jewelry clasp and extender"
+                    price: "$29.00"
+
+                ProductPreviewWidget:                    
+                    image_url: "assets/images/product/product_4.jpg"
+                    name: "Fossil Women's Carlie Mini Quartz Stainless Steel and Leather Watch"
+                    details: "Fossil has always been inspired by American creativity and ingenuity. Since 1984, we’ve strived to bring new life into the industry by making quality, fashionable watches and accessories that were both fun and accessible."
+                    price: "$48.53"
+
+                ProductPreviewWidget:                    
+                    image_url: "assets/images/product/product_5.jpg"
+                    name: "Nine West Women's Crystal Accented Bracelet Watch"
+                    details: "Domed mineral crystal lens. Grey dial with rose gold-tone hands and crystal accented markers. Gunmetal adjustable link bracelet; Fold over clasp with double push-button safety. Not water resistant"
+                    price: "$21.71"
+
+
+
+<ProductInfoScreen>
+    name: "product_info_screen"
+    MDBoxLayout:
+        orientation: "vertical"
+
+        MDTopAppBar:
+            elevation: 4
+            left_action_items: [["keyboard-backspace", lambda x: root.navigate_to_results_screen()]]
+        
+        MDBoxLayout:
+
+            MDGridLayout:
+                cols: 1
+                padding: (20, 20, 0, 20)
+                size_hint: None, None
+                size: self.parent.width * .4, self.parent.height
+
+                MDCard:
+                    line_color: (0.2, 0.2, 0.2, 0.3)
+                    size_hint: None, None
+                    size: self.parent.width * .9, self.parent.height * .6
+                    style: "elevated"
+                    shadow_softness: 1 
+                    shadow_offset: (0, 1)
+                    ripple_behavior: True
+                    radius: 10
+
+                    FitImage:
+                        source: "assets/images/product/product_1.jpg"
+                        radius: 10
+
+
+
+            MDGridLayout:
+                cols: 1
+                padding: 20
+                spacing: 10
+
+                MDCard:
+
+                    style: "elevated"
+                    md_bg_color: "#f6eeee"
+                    shadow_softness: 3
+                    shadow_offset: (10, 10)
+                    ripple_behavior: True
+                    radius: 10
+
+                    MDGridLayout:
+                        cols: 1
+                        size_hint: None, None
+                        size: self.parent.width, self.parent.height
+                        padding: 20
+                        spacing: 10
+                        
+
+                        MDLabel:
+                            id: name
+                            text: "Nine West Women's Floral Dial Strap Watch"
+                            size_hint_y: None
+                            text_size: self.parent.width, None
+                            height: self.texture_size[1]
+                            color: "grey"
+                            bold: True
+
+                        MDLabel:
+                            id: details
+                            text: "Mineral crystal lens; black textured dial with 3D printed floral design; silver-tone hands and markers. Black strap with buckle. Japanese-quartz Movement Case Diameter: 38 millimeter Not water resistant"
+                            size_hint_y: None
+                            text_size: self.parent.width, None
+                            height: self.texture_size[1]
+                            color: "grey"
+                        
+                        MDLabel:
+                            id: price
+                            text: "$ 21.93"
+                            size_hint_y: None
+                            text_size: self.parent.width, None
+                            height: self.texture_size[1]
+                            color: "grey"
+                            bold: True
+
+                        
+
+                        
+                
+                MDCard:
+                    orientation: 'vertical'
+                    style: "elevated"
+                    md_bg_color: "#f6eeee"
+                    shadow_softness: 3
+                    shadow_offset: (10, 10)
+                    ripple_behavior: True
+                    radius: 10
+                    size_hint: None, None
+                    size: self.parent.width * .9, 70
+                    padding: 10
+
+
+                    MDLabel:
+                        id: ratings
+                        text: "Ratings: 3000"
+                        size_hint_y: None
+                        text_size: self.parent.width, None
+                        height: self.texture_size[1]
+                        color: "grey"
+                        bold: True
+
+                    MDLabel:
+                        id: recommendation
+                        text: "Recommendation: 90%"
+                        size_hint_y: None
+                        text_size: self.parent.width, None
+                        height: self.texture_size[1]
+                        color: "grey"
+                        bold: True
+
+                MDCard:
+                    style: "elevated"
+                    md_bg_color: "#f6eeee"
+                    shadow_softness: 3
+                    shadow_offset: (10, 10)
+                    ripple_behavior: True
+                    radius: 10
+
+                    MDGridLayout:
+                        cols: 1
+                        size_hint: None, None
+                        size: self.parent.width, self.parent.height
+                        padding: 20
+                        spacing: 10
+
+                        MDLabel:
+                            id: product_summary
+                            text: "Product Summary"
+                            size_hint_y: None
+                            text_size: self.parent.width, None
+                            height: self.texture_size[1]
+                            color: "grey"
+                            bold: True
+
+                        MDLabel:
+                            id: product_summary_text
+                            text: "For the price this watch is lovely If you like rose gold you especially will not be disappointed with itIf you like larger watch faces you will also really like this I have very narrow wrists and I still love the size of the face I needed the very last option for fastening and probably could use one more however it really does not slide around much."
+                            size_hint_y: None
+                            text_size: self.parent.width, None
+                            height: self.texture_size[1]
+                            color: "grey"
+                            bold: True
+
+
+
+

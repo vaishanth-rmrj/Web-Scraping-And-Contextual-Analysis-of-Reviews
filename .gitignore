@@ -1,0 +1,5 @@
+# ignore all saved ml models
+*.h5
+*.bin
+*.pt
+datasets/reviews_dataset.csv
