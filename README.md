@@ -1,28 +1,43 @@
 # Web-Scraping-And-Contextual-Analysis-of-Reviews
-Implementation of NLP algorithm to analyse the product reviews
+A Natural Language Processing (NLP) application that analyzes customer reviews on Amazon and provides a recommendation score based on the sentiment of the reviews. The application reduces the time customers spend reading through reviews and helps them make an informed choice.
 
-### Project Objective 
-The goal of this project is to develop an application that can analyze reviews posted by numerous customers on Amazon for a product and make recommendations based on those reviews. When a customer searches for a product on Amazon, they take a lot of time reading the reviews and determining whether the item is as good as claimed. In order to help the customer make an informed choice, our application would reduce that time by automatically recommending the product to them.
+## Project Objective 
+The goal of this project is to develop an application that can analyze reviews posted by numerous customers on Amazon for a product and make recommendations based on those reviews.
 
-### Algorithm Flow Diagram
+## Algorithm Flow Diagram
+The project consists of two phases: the training phase and the prediction phase.
+
 1. Training Phase
-In our prediction pipeline, we first pre-process the amazon reviews that have been extracted, then clean and map. We then split the dataset into train validation and test data. The training and validation data is passed through a Pre-trained Bert tokenizer and Then passed through our implementation of the BERT model, where the loss is calculated and the weights are updated. Once our model is done training we use the test data to evaluate our accuracy. Over multiple epochs, the model which achieves the best accuracy is then stored.
+- Pre-process the Amazon reviews that have been extracted.
+- Clean and map the data.
+- Split the dataset into train, validation, and test data.
+- Pass the training and validation data through a Pre-trained BERT tokenizer.
+- Pass the data through an implementation of the BERT model.
+- Calculate the loss and update the weights.
+- Store the model with the best accuracy.
 
 <img src="https://github.com/vaishanth-rmrj/Web-Scraping-And-Contextual-Analysis-of-Reviews/blob/main/extras/training_flow.png" width=400 height=600/>
 
 2. Prediction Phase
-The best classifier model is used to generate a prediction on users’ sentiments towards a particular product, in the Fig: we can see how the best classification model from our prediction pipeline is used to generate a Product recommendation score which is based on the average predicted sentiment of all the reviews of the searched product.Furthermore, the positive classified reviews are then passed through a Pegasus Tokenizer which generates a summary of all the classified reviews.
+- Use the best classifier model to generate predictions on users' sentiments towards a particular product.
+- Generate a product recommendation score based on the average predicted sentiment of all reviews for the searched product.
+- Pass the positive classified reviews through a Pegasus Tokenizer to generate a summary of all classified reviews.
 
 <img src="https://github.com/vaishanth-rmrj/Web-Scraping-And-Contextual-Analysis-of-Reviews/blob/main/extras/prediction_flow.png" width=400 height=600/>
 
 3. GUI interaction with backend.
 <img src="https://github.com/vaishanth-rmrj/Web-Scraping-And-Contextual-Analysis-of-Reviews/blob/main/extras/gui_flow.png" width=400/>
 
-### GUI Implementation
-
-We have developed a GUI that allows users to search for a particular product on amazon. Then it displays the positive sentiment score which indicates how positively received is the amazon listing. The GUI also provides a summary of all the extracted reviews from the amazon URL.
+## GUI Implementation
+- A GUI has been developed that allows users to search for a particular product on Amazon.
+- The GUI displays the positive sentiment score which indicates how positively received the product is on Amazon.
+- It also provides a summary of all extracted reviews from the Amazon URL.
 
 <img src="https://github.com/vaishanth-rmrj/Web-Scraping-And-Contextual-Analysis-of-Reviews/blob/main/extras/gui.png" width=500/>
+
+## Conclusion
+
+In conclusion, the Web-Scraping-And-Contextual-Analysis-of-Reviews project presents a powerful solution for customers who wish to make informed choices when shopping on Amazon. By automating the process of analyzing product reviews, the application saves time and provides a clear recommendation score based on the sentiment of the reviews. This project demonstrates the capability of NLP algorithms in processing large amounts of text data and generating meaningful insights. The implementation of BERT and Pegasus Tokenizer makes the sentiment analysis robust and accurate, while the GUI provides an intuitive and user-friendly interface. Overall, the project provides a valuable tool for customers who are looking to make informed purchase decisions on Amazon.
 
 
 
